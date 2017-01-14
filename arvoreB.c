@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef enum { false, true } bool;
+
 typedef struct node
 {
 	int n; // Número de filhos
@@ -12,93 +14,60 @@ node;
 
 typedef struct arvoreB
 {
-	node* raiz;
-	int t;
+	node* raiz; //Ponteiro da raíz
+	int t; //Grau
 }
 arvoreB;
 
-node aloca_node(int grau)
+void aloca_node(node* x, int grau)
+{	
+	x->folha = true;
+	x->n = 0;
+	x->ch = (int*)calloc(2 * grau - 1, sizeof(int));
+	x->filhos = (node**)calloc(2 * grau, sizeof(node));
+}
+
+void cria_arvore(arvoreB* a, int grau)
 {
 	node x;
-	x.folha = 1;
-	x.n = 0;
-	x.ch = (int *)malloc((2*grau-1) * sizeof(int));
-	x.filhos = (node **)malloc((2*grau-1) * sizeof(int));
-	return x;
+
+	aloca_node(&x, grau);
+	a->t = grau;
+	a->raiz = &x;
 }
 
-arvoreB cria_arvore(int grau)
+void insere_nao_cheio(node** r, int k)
 {
-	node x = aloca_node(grau);
-	arvoreB arvore;
-	
-	arvore.t = grau;
-	arvore.raiz = &x;
-	
-	return arvore;
+	printf("raiz.n = %d\n", (*r)->n);
+	//t->ch[t->n] = k;
+	//t->n++;
 }
 
-void divide_filho(arvoreB T, node* x, int i)
+void insere(arvoreB* T, int k)
 {
-	node z = aloca_node(T.t);
-	node y = x->filhos[i];
+	node* r = T->raiz;
 	
-	z.folha = y.folha;
-	z.n = T.t - 1;
-
-	for(j = 0; j < T.t - 2; j++)
+	if(r->n == 2 * T->t - 1)
 	{
-		z.ch[j] = y.ch[j + T.t];
+		printf("Raiz cheia\n");
 	}
-	
-	if(!y.folha)
+	else
 	{
-		for(j = 0; j < T.t-1; j++)
-		{
-			z.filhos[j] = y.filhos[j + T.t];
-		}
-	}
-	
-	y.n = T.t-1;
-
-	for(j = x->n + 1; j > i + 1; j--)
-	{
-		x->filhos[j+1] = x->filhos[j];
-	}
-
-	x->filhos[i+1] = z;
-
-	for(j = x->n; j > i; j--)
-	{
-		x->filhos[j+1] = x->filhos[j];
-	}
-	
-	x->filhos[i] = y.filhos[T.t];
-	x->n++;
-}
-
-void insere(arvore* T, int k)
-{
-	node *r = T->raiz;
-	if(r.n == 2*t-1)
-	{
-		s = aloca_node(T->t);
-		T->raiz = s;
-		
-		
+		printf("raiz.n = %d\n", T->raiz->n);
+		insere_nao_cheio(&T->raiz, k);
+		printf("raiz.n = %d\n", T->raiz->n);
 	}
 }
 
 
 int main(int argc, char* argv[])
 {
-	arvoreB Btree = cria_arvore(3);
+	arvoreB a;
+	cria_arvore(&a, 2);
 	
-	if(Btree.raiz->ch != NULL)
-	{
-		Btree.raiz->ch[1] = 782;
-		printf("%d\n", Btree.raiz->ch[1]);
-	}
+	insere(&a, 10);
+	
+	printf("raiz.n = %d\n", a.raiz->n);
 	
 	return 0;
 }
