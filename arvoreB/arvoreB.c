@@ -44,6 +44,41 @@ void divide_filho(arvoreB T, node* x, int i)
 {
     node z;
     aloca_node(&z, T.t);
+    node* y = x->filhos[i];
+
+//Copia metade superior do nó cheio para um novo nó
+    z.folha = y->folha;
+    z.n = T.t-1;
+
+    for(int j = 0; j < T.t-1; j++)
+    {
+        z.ch[j] = y->ch[j+T.t];
+    }
+
+    if(!y->folha)
+    {
+        for(int j = 0; j < T.t; j++)
+        {
+            z.filhos[j] = y->filhos[i+T.t];
+        }
+    }
+
+    y->n = T.t-1;
+
+//Coloca z como filho de x
+    for(int j = x->n+1; j > i+1; j--)
+    {
+        x->filhos[j+1] = x->filhos[j];
+    }
+    x->filhos[i+1] = &z;
+
+//Atualiza chaves
+    for(int j = x->n; j > i; j--)
+    {
+        x->ch[j+1] = x->ch[i];
+    }
+    x->ch[i] = y->ch[T.t];
+    x->n++;
 }
 
 void insere_nao_cheio(node* r, int k)

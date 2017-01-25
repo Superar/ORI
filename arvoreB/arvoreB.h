@@ -8,7 +8,7 @@ typedef enum { false, true } bool;
 
 typedef struct node
 {
-	int n; // Número de filhos
+	int n; // Número de chaves
 	int* ch; // Chaves
 	struct node** filhos;
 	bool folha;
