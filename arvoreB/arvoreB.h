@@ -4,12 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef enum { false, true } bool;
+
 typedef struct node
 {
 	int n; // Número de filhos
 	int* ch; // Chaves
 	struct node** filhos;
-	int folha; // Bool
+	bool folha;
 }
 node;
 
@@ -24,7 +26,11 @@ arvoreB;
 void aloca_node(node*, int);
 void cria_arvore(arvoreB*, int);
 
+/**Busca**/
+int busca(node*, node*, int);
+
 /** Inserção*/
+void divide_filho(arvoreB, node*, int);
 void insere_nao_cheio(node*, int);
 void insere(arvoreB*, int);
 

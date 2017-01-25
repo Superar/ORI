@@ -7,8 +7,10 @@ int main(int argc, char* argv[])
     cria_arvore(&a, 2);
 
     insere(&a, 10);
-
-    printf("raiz.n = %d\n", a.raiz->n);
+    insere(&a, 20);
+    insere(&a, 30);
+    insere(&a, 40);
+    insere(&a, 50);
 
     return 0;
 }
