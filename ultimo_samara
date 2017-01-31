@@ -1,0 +1,136 @@
+#include "arvoreB.h"
+
+/** Inicialização*/
+void aloca_node(node* x, int grau)
+{
+	x->folha = true;
+	x->n = 0;
+	x->ch = (int*)calloc(2 * grau - 1, sizeof(int));
+	x->filhos = (node**)calloc(2 * grau, sizeof(node));
+}
+
+void cria_arvore(arvoreB* a, int grau)
+{
+	node x;
+
+	aloca_node(&x, grau);
+	a->t = grau;
+	a->raiz = &x;
+}
+
+/**Busca**/
+int busca(node* T, node* x, int k)
+{
+    //int i = 1;
+    int i = 1;
+    //while(i <= T->n && k > T->ch[i])
+        //i++;
+    while(i <= T->n && k > T->ch[i-1])
+        i++;
+    //if(i <= T->n && k == T->ch[i])
+    if(i < T->n && k == T->ch[i-1])
+    {
+        x = T;
+        return i;
+    }
+    else if (T->folha)
+    {
+        x = NULL;
+        return -1;
+    }
+    else
+        return busca(T->filhos[i-1], x, k);
+}
+
+/** Inserção*/
+
+void divide_filho(arvoreB T, node* x, int i)
+{
+    node z;
+    aloca_node(&z, T.t);
+    node* y = x->filhos[i-1];
+
+//Copia metade superior do nó cheio para um novo nó
+    z.folha = y->folha;
+    z.n = T.t-1;
+
+    int j;
+
+    for(j = 0; j < T.t-1; j++)
+    {
+        z.ch[j] = y->ch[j+T.t];
+    }
+
+    if(!y->folha)
+    {
+        for(j = 0; j < T.t; j++)
+        {
+            z.filhos[j] = y->filhos[i+T.t];
+        }
+    }
+    //y->n = T.t -1;
+    y->n = T.t;
+
+//Coloca z como filho de x
+	//for(j = x->n+1; j > i+1; j--)
+    for(j = x->n+1; j > i+1; j--)
+    {
+        x->filhos[j] = x->filhos[j-1];
+    }
+    x->filhos[i] = &z;
+
+//Atualiza chaves
+	//for(j = x->n; j > i; j--)
+    for(j = x->n; j > i; j--)
+    {
+        x->ch[j] = x->ch[i-1];
+    }
+    x->ch[i-1] = y->ch[T.t-1];
+    x->n++;
+}
+
+void insere_nao_cheio(node* r, int k)
+{
+	//r->ch[r->n] = k;
+	r->ch[r->n-1] = k;
+	r->n++;
+}
+
+/*node * getParent(node *raiz, int k){
+    if(raiz == NULL) return NULL;
+    int i;
+	for(i=0; i < raiz.n; i++)
+	{
+		if(raiz->ch[i] == k)
+			return raiz;
+	}
+	return getParent(raiz->filhos[i]); //parei aqui
+    //else if (root->rChild->key == key || root->lChild->key == key) return root;
+    //else if (root->key > key) getParent();
+    //else getParent();
+    //return root;
+}
+*/
+void insere(arvoreB* T, int k)
+{
+	node* r = T->raiz;
+
+	//if(r->n == 2 * T->t - 1)
+	if(r->n == 2 * T->t - 1)
+	{
+		printf("Raiz cheia\n");
+		node* s;
+		aloca_node(s, T->t);
+		T->raiz = s;
+		s->folha = false;
+		s->n = 0;
+		s->filhos[0] = &r;
+		//Chamar divide filho
+		divide_filho(*T, s, 1);
+		insere_nao_cheio(s, k);
+	}
+	else
+	{
+		insere_nao_cheio(T->raiz, k);
+	}
+}
