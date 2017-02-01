@@ -1,23 +1,21 @@
 #include "arvoreB.h"
 
 /** Inicialização*/
-void aloca_node(node* x, int grau)
+void aloca_node(node** x, int grau)
 {
-	x->folha = true;
-	x->n = 0;
-	x->ch = (int*)calloc(2 * grau - 1, sizeof(int));
-	for(int i = 0; i < 2*grau-1; i++)
-        x->ch[i] = INT_MAX;
-	x->filhos = (node**)calloc(2 * grau, sizeof(node));
+    *x = (node*)malloc(sizeof(node));
+    (*x)->folha = true;
+    (*x)->n = 0;
+    (*x)->ch = (int*)calloc(2 * grau - 1, sizeof(int));
+    for(int i = 0; i < 2*grau-1; i++)
+        (*x)->ch[i] = INT_MAX;
+    (*x)->filhos = (node**)calloc(2 * grau, sizeof(node));
 }
 
 void cria_arvore(arvoreB* T, int grau)
 {
-	node x;
-
-	aloca_node(&x, grau);
-	T->t = grau;
-	T->raiz = &x;
+    aloca_node(&T->raiz, grau);
+    T->t = grau;
 }
 
 /** Busca*/

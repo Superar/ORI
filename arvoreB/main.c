@@ -6,6 +6,13 @@ int main(int argc, char* argv[])
     arvoreB a;
     cria_arvore(&a, 2);
 
+    /*Adicionei esses testes para verificar o erro*/
+    printf("raiz->folha = %d\n", a.raiz->folha);
+    printf("raiz->raiz = %d\n", a.raiz->n);
+    printf("raiz->folha = %d\n", a.raiz->folha);
+    printf("raiz->raiz = %d\n", a.raiz->n);
+    printf("raiz->folha = %d\n", a.raiz->folha);
+
     imprime_no(*a.raiz);
     insere(&a, 10);
     imprime_no(*a.raiz);
@@ -14,8 +21,8 @@ int main(int argc, char* argv[])
     insere(&a, 30);
     imprime_no(*a.raiz);
 
-/*TODO: Verificar se insere certo quando tem que dividir a raíz. Eu sei que a divisão já está certa, mas como o computador aqui
-tá mudando o valor do atributo 'folha' do nada, ele dá erro.*/
+/*TODO: Verificar se insere certo quando tem que dividir a raï¿½z. Eu sei que a divisï¿½o jï¿½ estï¿½ certa, mas como o computador aqui
+tï¿½ mudando o valor do atributo 'folha' do nada, ele dï¿½ erro.*/
     //insere(&a, 40);
     //imprime_no(*a.raiz);
     //insere(&a, 50);
@@ -28,8 +35,8 @@ tá mudando o valor do atributo 'folha' do nada, ele dá erro.*/
     if(saida != NULL)
         printf("%p\n%d\n", saida, indice);
     else
-/*TODO: Verificar quando o valor não está na árvore (No computador do lab ele muda o valor do 'folha' toda hora.
-Então fica super zoado os resultados, tem que ver se o problema é do código ou da máquina)*/
+/*TODO: Verificar quando o valor nï¿½o estï¿½ na ï¿½rvore (No computador do lab ele muda o valor do 'folha' toda hora.
+Entï¿½o fica super zoado os resultados, tem que ver se o problema ï¿½ do cï¿½digo ou da mï¿½quina)*/
         printf("Valor invalido\n");
 
 

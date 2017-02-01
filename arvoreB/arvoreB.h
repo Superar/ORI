@@ -9,7 +9,7 @@ typedef enum { false, true } bool;
 
 typedef struct node
 {
-	int n; // Número de chaves
+	int n; // Nï¿½mero de chaves
 	int* ch; // Chaves
 	struct node** filhos;
 	bool folha;
@@ -18,19 +18,19 @@ node;
 
 typedef struct arvoreB
 {
-	node* raiz; //Ponteiro da raíz
+	node* raiz; //Ponteiro da raï¿½z
 	int t; //Grau
 }
 arvoreB;
 
-/** Inicialização*/
-void aloca_node(node*, int);
+/** Inicializaï¿½ï¿½o*/
+void aloca_node(node**, int); // Alterei aqui
 void cria_arvore(arvoreB*, int);
 
 /** Busca*/
 int busca(node*, node**, int);
 
-/** Inserção*/
+/** Inserï¿½ï¿½o*/
 void divide_filho(arvoreB, node*, int);
 void insere_nao_cheio(arvoreB, node*, int);
 void insere(arvoreB*, int);
