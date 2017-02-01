@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 typedef enum { false, true } bool;
 
@@ -26,12 +27,16 @@ arvoreB;
 void aloca_node(node*, int);
 void cria_arvore(arvoreB*, int);
 
-/**Busca**/
-int busca(node*, node*, int);
+/** Busca*/
+int busca(node*, node**, int);
 
 /** Inserção*/
 void divide_filho(arvoreB, node*, int);
-void insere_nao_cheio(node*, int);
+void insere_nao_cheio(arvoreB, node*, int);
 void insere(arvoreB*, int);
+
+/** Print*/
+void imprime_no(node);
+void imprime_filhos(node);
 
 #endif // ARVOREB_H_INCLUDED
