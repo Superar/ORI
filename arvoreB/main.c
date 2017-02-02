@@ -33,6 +33,8 @@ int main(int argc, char* argv[])
                 printf("1 - Insercao\n2 - Busca\n3 - Sair\n");
                 scanf("%d", &opcao);
 
+                system("clear");
+
                 if(opcao == 1)
                 {
                     printf("Numero a ser inserido: ");
@@ -58,6 +60,7 @@ int main(int argc, char* argv[])
                     sair = true;
                 else
                     printf("Opcao invalida\n");
+                printf("\n\n\n");
             }
 
         }

@@ -1,0 +1,18 @@
+A utilização da aplicação deve se dar no sistema operacional Linux
+Os seguintes arquivos devem estar em um mesmo diretório:
+  arvoreB.c
+  arvoreB.h
+  main.c
+  makefile
+  README
+Para os comandos apresentados a seguir funcionarem, deve-se ter o terminal no
+diretório citado acima.
+
+Instruções para compilar:
+make
+
+Para executar:
+./arvoreB -t <grau da árvore desejado>
+
+Para eliminar arquivos criados
+make clean
