@@ -11,17 +11,17 @@ typedef enum { false, true } bool;
 
 typedef struct node
 {
-	int n; // Numero de chaves
-	int* ch; // Chaves
-	struct node** filhos;
-	bool folha;
+    int n; // Numero de chaves
+    int* ch; // Chaves
+    struct node** filhos;
+    bool folha;
 }
 node;
 
 typedef struct arvoreB
 {
-	node* raiz; //Ponteiro da ra�z
-	int t; //Grau
+    node* raiz; //Ponteiro da ra�z
+    int t; //Grau
 }
 arvoreB;
 

@@ -51,7 +51,7 @@ void divide_filho(arvoreB T, node* x, int i)
     printf("Divide no %p\n", y);
     imprime_no(*x);
 
-//Copia metade superior do nó cheio para um novo nó
+    //Copia metade superior do nó cheio para um novo nó
     z->folha = y->folha;
     z->n = T.t-1;
 
@@ -70,14 +70,14 @@ void divide_filho(arvoreB T, node* x, int i)
 
     y->n = T.t-1;
 
-//Coloca z como filho de x
+    //Coloca z como filho de x
     for(int j = x->n+1; j > i; j--)
     {
         x->filhos[j+1] = x->filhos[j];
     }
     x->filhos[i+1] = z;
 
-//Atualiza chaves
+    //Atualiza chaves
     for(int j = x->n; j >= i; j--)
     {
         x->ch[j+1] = x->ch[j];
@@ -88,14 +88,14 @@ void divide_filho(arvoreB T, node* x, int i)
 
 void insere_nao_cheio(arvoreB T, node* x, int k)
 {
-	int i = x->n;
-	int t = T.t;
+    int i = x->n;
+    int t = T.t;
 
     printf("No inserido: %p\n", x);
-//Nó é folha
-	if(x->folha)
+    //Nó é folha
+    if(x->folha)
     {
-    //"Abre espaço" para inserir o novo valor
+        //"Abre espaço" para inserir o novo valor
         while(i >= 0 && k < x->ch[i])
         {
             x->ch[i+1] = x->ch[i];
@@ -107,20 +107,20 @@ void insere_nao_cheio(arvoreB T, node* x, int k)
 
         printf("Indice: %d\n", i+1);
     }
-//Nó não é folha
+    //Nó não é folha
     else
     {
-    //Procura filho para inserir
+        //Procura filho para inserir
         while(i >= 0 && k < x->ch[i])
             i--;
         i++;
 
-    //Verifica se o filho em que vai inserir está cheio
+        //Verifica se o filho em que vai inserir está cheio
         if(x->filhos[i]->n == 2*t - 1)
         {
             divide_filho(T, x, i);
 
-        //Verifica se a chave a ser inserida é maior que a chave que "subiu"
+            //Verifica se a chave a ser inserida é maior que a chave que "subiu"
             if(k > x->ch[i])
                 i++;
         }
@@ -130,25 +130,25 @@ void insere_nao_cheio(arvoreB T, node* x, int k)
 
 void insere(arvoreB* T, int k)
 {
-	node* r = T->raiz;
+    node* r = T->raiz;
 
     //Raíz cheia. Cresce a árvore
-	if(r->n == 2 * T->t - 1)
-	{
-		node* s;
-		aloca_node(&s, T->t);
-		T->raiz = s;
-		s->folha = false;
-		s->n = 0;
-		s->filhos[0] = r;
-		divide_filho(*T, s, 0);
-		insere_nao_cheio(*T, s, k);
+    if(r->n == 2 * T->t - 1)
+    {
+        node* s;
+        aloca_node(&s, T->t);
+        T->raiz = s;
+        s->folha = false;
+        s->n = 0;
+        s->filhos[0] = r;
+        divide_filho(*T, s, 0);
+        insere_nao_cheio(*T, s, k);
 
-	}
-	else
-	{
-		insere_nao_cheio(*T, T->raiz, k);
-	}
+    }
+    else
+    {
+        insere_nao_cheio(*T, T->raiz, k);
+    }
 }
 
 /** Print*/
