@@ -44,7 +44,7 @@ int busca(node* T, node** x, int k)
 /** Inserção*/
 void divide_filho(arvoreB T, node* x, int i)
 {
-    node z;
+    node *z;
     aloca_node(&z, T.t);
     node* y = x->filhos[i];
 
@@ -52,19 +52,19 @@ void divide_filho(arvoreB T, node* x, int i)
     imprime_no(*x);
 
 //Copia metade superior do nó cheio para um novo nó
-    z.folha = y->folha;
-    z.n = T.t-1;
+    z->folha = y->folha;
+    z->n = T.t-1;
 
     for(int j = 0; j < T.t-1; j++)
     {
-        z.ch[j] = y->ch[j+T.t];
+        z->ch[j] = y->ch[j+T.t];
     }
 
     if(!y->folha)
     {
         for(int j = 0; j < T.t; j++)
         {
-            z.filhos[j] = y->filhos[j+T.t];
+            z->filhos[j] = y->filhos[j+T.t];
         }
     }
 
@@ -75,7 +75,7 @@ void divide_filho(arvoreB T, node* x, int i)
     {
         x->filhos[j+1] = x->filhos[j];
     }
-    x->filhos[i+1] = &z;
+    x->filhos[i+1] = z;
 
 //Atualiza chaves
     for(int j = x->n; j >= i; j--)
@@ -136,7 +136,7 @@ void insere(arvoreB* T, int k)
 	if(r->n == 2 * T->t - 1)
 	{
 		node* s;
-		aloca_node(s, T->t);
+		aloca_node(&s, T->t);
 		T->raiz = s;
 		s->folha = false;
 		s->n = 0;

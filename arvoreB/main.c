@@ -3,42 +3,67 @@
 
 int main(int argc, char* argv[])
 {
-    arvoreB a;
-    cria_arvore(&a, 2);
+    if(argc == 3 && !strcmp(argv[1], "-t"))
+    {
+      arvoreB T;
 
-    /*Adicionei esses testes para verificar o erro*/
-    printf("raiz->folha = %d\n", a.raiz->folha);
-    printf("raiz->raiz = %d\n", a.raiz->n);
-    printf("raiz->folha = %d\n", a.raiz->folha);
-    printf("raiz->raiz = %d\n", a.raiz->n);
-    printf("raiz->folha = %d\n", a.raiz->folha);
+      char *p;
+      errno = 0;
+      long valor = strtol(argv[2], &p, 10);
+      int grau;
 
-    imprime_no(*a.raiz);
-    insere(&a, 10);
-    imprime_no(*a.raiz);
-    insere(&a, 20);
-    imprime_no(*a.raiz);
-    insere(&a, 30);
-    imprime_no(*a.raiz);
+      if(errno != 0 || *p != '\0' || valor > INT_MAX)
+      {
+        printf("Argumentos invalidos\n");
+        exit(EXIT_FAILURE);
+      }
+      else
+      {
+        grau = valor;
+        cria_arvore(&T, grau);
 
-/*TODO: Verificar se insere certo quando tem que dividir a ra�z. Eu sei que a divis�o j� est� certa, mas como o computador aqui
-t� mudando o valor do atributo 'folha' do nada, ele d� erro.*/
-    //insere(&a, 40);
-    //imprime_no(*a.raiz);
-    //insere(&a, 50);
-    //imprime_no(*a.raiz);
+      // Menu
+        bool sair = false;
+        int opcao = 0;
+        int arg;
+        node* x;
 
-/**< Teste de busca */
-    node* saida;
-    int indice = busca(a.raiz, &saida, 20);
+        while(!sair)
+        {
+          printf("1 - Insercao\n2 - Busca\n3 - Sair\n");
+          scanf("%d", &opcao);
 
-    if(saida != NULL)
-        printf("%p\n%d\n", saida, indice);
+          if(opcao == 1)
+          {
+            printf("Numero a ser inserido: ");
+            scanf("%d", &arg);
+            if(busca(T.raiz, &x, arg) == -1)
+              insere(&T, arg);
+            else
+              printf("Numero ja esta na arvore\n");
+          }
+          else if(opcao == 2)
+          {
+            printf("Numero a ser buscado: ");
+            scanf("%d", &arg);
+
+            int indice = busca(T.raiz, &x, arg);
+
+            if(indice != -1)
+              printf("Elemento no no %p\nIndice: %d\n", x, indice);
+            else
+              printf("Chave nao encontrada\n");
+          }
+          else if(opcao == 3)
+            sair = true;
+          else
+            printf("Opcao invalida\n");
+        }
+
+      }
+    }
     else
-/*TODO: Verificar quando o valor n�o est� na �rvore (No computador do lab ele muda o valor do 'folha' toda hora.
-Ent�o fica super zoado os resultados, tem que ver se o problema � do c�digo ou da m�quina)*/
-        printf("Valor invalido\n");
-
+      printf("Argumentos invalidos\n");
 
     return 0;
 }
