@@ -1,0 +1,19 @@
+T1 - Arquivamento de Diretório
+Disciplina: Organização e Recuperação da Informação - Turma C
+Docente: Ricardo Cerri
+
+GRUPO:
+- Marcio Lima Inácio - 587265
+- Samara Assis - 504289
+- Dihogo Henrique - 586773
+
+INSTRUÇÕES PARA EXECUÇÃO:
+É necessário o uso do python versão 3.4 ou maior para a execução do script.
+
+É importante salientar que o caminho para o diretório ou para o arquivo não podem terminar em "/" ou "\".
+Também não é recomendado usar o caminho para o diretório como "." ou "..". Sempre utilizar o caminho inteiro.
+
+Linhas de comando para execução:
+
+python sar.py -c <Diretório a ser especificado no arquivo .sar>
+python sar.py [-e|-l] <Caminho para o arquivo .sar>
