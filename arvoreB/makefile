@@ -5,11 +5,11 @@ all : arvoreB
 
 #Compila o programa
 arvoreB : ${OBJS}
-	gcc -o $@ $^
+	gcc -std=c99 -o $@ $^
 
 #Gera os objetos
 %.o : %.c
-	gcc -o $@ -c $^
+	gcc -std=c99 -o $@ -c $^
 
 #Deleta arquivos
 clean :
